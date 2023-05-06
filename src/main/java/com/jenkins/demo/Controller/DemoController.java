@@ -12,4 +12,9 @@ public class DemoController {
     public String hello(){
         return "hello world!";
     }
+
+    @RequestMapping("/testGit")
+    public String git(){
+        return "test git";
+    }
 }
