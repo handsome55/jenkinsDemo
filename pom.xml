@@ -16,7 +16,6 @@
     <properties>
         <java.version>11</java.version>
         <lombok-version>1.18.18</lombok-version>
-        <mybtis-plus-version>3.3.2</mybtis-plus-version>
         <mysql-version>8.0.21</mysql-version>
     </properties>
     <dependencies>
@@ -44,7 +43,12 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybtis-plus-version}</version>
+            <version>3.4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.16.8</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
