@@ -16,3 +16,4 @@ mybatis-plus:
 logging:
   level:
     com.jenkins.demo.Mapper: debug
+  config: classpath:logback-spring.xml
