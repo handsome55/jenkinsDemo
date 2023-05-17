@@ -14,11 +14,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class fabulousMqConfig {
 
-    private static final String CHANGE_NAME="fabulous_change_name";
+    public static final String CHANGE_NAME="fabulous_change_name";
 
     public static final String QUEUE_NAME="fabulous_queue_name";
 
-    private static final String BING_KEY="fabulous_bind_key";
+    public static final String BING_KEY="fabulous_bind_key";
 
     @Bean("fabulousChangeName")
     public Exchange topicChange(){

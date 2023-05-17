@@ -12,4 +12,6 @@ public interface ProductService {
     List<Product> selectPageProduct(Integer num, Integer size);
 
     void removeRedis();
+
+    Integer insertMqProduct(Product product);
 }

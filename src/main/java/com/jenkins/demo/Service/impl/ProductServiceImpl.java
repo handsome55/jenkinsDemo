@@ -1,6 +1,7 @@
 package com.jenkins.demo.Service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jenkins.demo.Config.fabulousMqConfig;
 import com.jenkins.demo.Mapper.ProductMapper;
 import com.jenkins.demo.Mapper.UserProFabulousMapper;
 import com.jenkins.demo.Service.ProductService;
@@ -8,6 +9,7 @@ import com.jenkins.demo.model.Po.Product;
 import com.jenkins.demo.model.Po.UserProFabulous;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private Redisson redisson;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
     private static final String redis_key="product";
+
+
 
     @Override
     public Integer insertProduct(Product product) {
@@ -84,5 +91,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void removeRedis() {
         redisTemplate.delete(redis_key);
+    }
+
+    @Override
+    public Integer insertMqProduct(Product product) {
+        UserProFabulous userProFabulous = new UserProFabulous();
+        Long proId= Long.valueOf((int)(1+Math.random()*15));
+        userProFabulous.setUserId(1L);
+        userProFabulous.setProductId(proId);
+        userProFabulous.setNum(1);
+        userProFabulous.setStatus("1");
+        userProFabulous.setCreateTime(LocalDateTime.now());
+        int insert = userProFabulousMapper.insert(userProFabulous);
+        rabbitTemplate.convertAndSend(fabulousMqConfig.CHANGE_NAME,fabulousMqConfig.BING_KEY,proId);
+        return insert;
     }
 }
