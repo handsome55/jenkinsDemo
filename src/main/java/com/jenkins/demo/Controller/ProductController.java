@@ -2,6 +2,8 @@ package com.jenkins.demo.Controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jenkins.demo.Service.ProductService;
+import com.jenkins.demo.Utils.LoginToken;
+import com.jenkins.demo.Utils.PassToken;
 import com.jenkins.demo.model.Po.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/rank")
+    @PassToken
     public List<Product> selectPage(Integer num, Integer size){
        return productService.selectPageProduct(num,size);
     }
